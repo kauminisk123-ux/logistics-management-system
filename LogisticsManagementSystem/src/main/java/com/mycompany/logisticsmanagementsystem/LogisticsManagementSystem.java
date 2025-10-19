@@ -63,7 +63,69 @@ public class LogisticsManagementSystem {
         return choice;
     
     }
+    
+    
+    public static void cityManagement(Scanner scanner) {
+    String[] cities = new String[30];
+    int cityCount = 0;
+    
+    while (true) {
+        System.out.println("\n=== City Management ===");
+        System.out.println("1. Add City");
+        System.out.println("2. View Cities");
+        System.out.println("3. Back to Main");
+        System.out.print("Choose: ");
+        
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        
+        if (choice == 1) {
+            
+            while (true) {
+                System.out.println("Enter city name (type -1 to stop): ");
+                
+                String newCity = scanner.nextLine();
+                
+                if (newCity.equals("-1")) {
+                    break;
+                }
+                
+                if (cityCount < 30) {
+                    cities[cityCount] = newCity;
+                    cityCount++;
+                    System.out.println("Added: " + newCity);
+                } 
+                else {
+                    System.out.println(" Cannot add more cities.");
+                    break;
+                }
+            }
+        }
+        else if (choice == 2) {
+            
+            if (cityCount == 0) {
+                System.out.println("No cities added yet.");
+            } 
+            else {
+                System.out.println("=== Cities List ===");
+                for (int i = 0; i < cityCount; i++) {
+                    System.out.println((i+1) + ". " + cities[i]);
+                }
+            }
+        }
+        
+        
+       
+        else if (choice == 3) {
+            System.out.println("Back to the Main Menu...");
+            return;  
+        }
+        
+        
+        else {
+            System.out.println("Invalid choice!");
+        }
+    }
 }
-    
-    
+}
     
