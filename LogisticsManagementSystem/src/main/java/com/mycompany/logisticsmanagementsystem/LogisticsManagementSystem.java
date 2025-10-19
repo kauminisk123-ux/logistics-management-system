@@ -284,13 +284,49 @@ public class LogisticsManagementSystem {
 }
     
     public static void vehicleManagement(Scanner scanner){
+        
+        while (true) {
+            System.out.println("\n=== Vehicle Management ===");
+            System.out.println("1. View Vehicle Types");
+            System.out.println("2. Select the Vehicle Type: ");
+            System.out.println("3. Back to Main");
+            System.out.print("Choose: ");
+        
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch(choice){
+                case 1:
+                    viewVehicleTypes();
+                    break;
+                
+                case 2:
+                    selectVehicle(scanner);
+                
+             
+            }
+        
+        }
+    
+    
+    }
+    
+    public static void viewVehicleTypes() {
+        System.out.println("\n=== VEHICLE TYPES ===");
+        System.out.println("Type   Capacity(kg)  Rate/km  Speed(km/h)  Fuel(km/l)");
+        System.out.println("----------------------------------------------------");
+    
+        for (int i = 0; i < 3; i++) {
+            System.out.printf("%-8s %-14d %-9d %-13d %-10d\n",
+                vehicleTypes[i], capacities[i], ratesPerKm[i],avgSpeeds[i], fuelEfficiency[i]);
+    }
+}
+    
+    public static int selectVehicle(Scanner scanner){
+    
     
     
     }
 }
-        
-        
-        
-        
         
         
