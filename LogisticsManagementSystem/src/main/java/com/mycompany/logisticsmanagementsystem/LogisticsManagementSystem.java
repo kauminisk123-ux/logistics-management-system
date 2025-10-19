@@ -192,7 +192,7 @@ public class LogisticsManagementSystem {
                 return;
             default:
                 System.out.println("Invalid choice!");
-                break;
+                
         }
     }
 }
@@ -278,7 +278,7 @@ public class LogisticsManagementSystem {
                     return;
                 default:
                     System.out.println("Invalid choice!");
-                    break;
+                    
             }
     }
 }
@@ -302,6 +302,14 @@ public class LogisticsManagementSystem {
                 
                 case 2:
                     selectVehicle(scanner);
+                    break;
+                
+                case 3:
+                    System.out.println("Back to Main...");
+                    return;
+                default:
+                    System.out.println("Invalid choice!");
+                    
                 
              
             }
@@ -321,12 +329,24 @@ public class LogisticsManagementSystem {
                 vehicleTypes[i], capacities[i], ratesPerKm[i],avgSpeeds[i], fuelEfficiency[i]);
     }
 }
+    public static int selectVehicle(Scanner scanner) {
+        viewVehicleTypes();
+        
+        System.out.print("\nSelect vehicle (1=Van, 2=Truck, 3=Lorry): ");
+        int vehicleChoice = scanner.nextInt();
     
-    public static int selectVehicle(Scanner scanner){
+        if (vehicleChoice >= 1 && vehicleChoice <= 3) {
+            System.out.println("Selected: " + vehicleTypes[vehicleChoice-1]);
+            return vehicleChoice;
+        } 
+        else {
+            System.out.println("Invalid vehicle selection!");
+            return -1;
+        }
+    }
+    
+        
     
     
     
     }
-}
-        
-        
