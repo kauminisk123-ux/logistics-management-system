@@ -148,7 +148,8 @@ public class LogisticsManagementSystem {
                     else {
                         System.out.println("Invalid city number!");
                     }
-                }           break;
+                }           
+                break;
             case 4:
                 
                 if (cityCount == 0) {
@@ -241,33 +242,31 @@ public class LogisticsManagementSystem {
                     }
                     
                     break;
-                case 2:
-                    
+                  
+                        
+                    case 2:
     
-                    if (cityCount == 0) {
-                        System.out.println("No cities added yet!");
-                        break;
-                    }
+                        if (cityCount == 0) {
+                            System.out.println("No cities added yet!");
+                            break;
+                        }
     
-                    System.out.println("\n=== Distance Table ===");
-    
-    
-                    System.out.print("  ");
-                    for (int i = 0; i < cityCount; i++) {
-                        System.out.print(cities[i] + "  ");
-                    }
-                    System.out.println();
-    
-    
-                    for (int i = 0; i < cityCount; i++) {
-                        System.out.print(cities[i] + "  ");
-                        for (int j = 0; j < cityCount; j++) {
-                            System.out.print(distances[i][j] + "km     ");
+                        System.out.println("\nDistance Table:");
+                        System.out.print("From\\To\t");
+                        for (int i = 0; i < cityCount; i++) {
+                            System.out.print(cities[i] + "\t");
                         }
                         System.out.println();
-                    }
-                    break;
-                    
+    
+                        for (int i = 0; i < cityCount; i++) {
+                            System.out.print(cities[i] + "\t");
+                            for (int j = 0; j < cityCount; j++) {
+                                System.out.print(distances[i][j] + "km\t");
+                            }
+                        System.out.println();
+                        }
+                        break;
+                        
                 case 3:
                     System.out.println("Back to Main...");
                     return;
@@ -278,3 +277,6 @@ public class LogisticsManagementSystem {
     }
 }
 }
+        
+        
+   
