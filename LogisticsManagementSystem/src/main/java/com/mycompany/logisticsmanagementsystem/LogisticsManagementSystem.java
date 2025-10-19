@@ -10,6 +10,7 @@ package com.mycompany.logisticsmanagementsystem;
  */
 import java.util.Scanner;
 public class LogisticsManagementSystem {
+    
 
     public static void main(String[] args) {
         System.out.println("\t\t*-*-*-*-*-WELCOME TO LOGISTICS MANAGEMENT SYSTEM-*-*-*-*-*");
@@ -182,6 +183,45 @@ public class LogisticsManagementSystem {
                 System.out.println("Invalid choice!");
                 break;
         }
+    }
+}
+    
+    public static void distanceManagement(Scanner scanner){
+        
+        int[][] distances = new int[30][30];
+        
+        for (int i = 0; i < 30; i++) {
+            for (int j = 0; j < 30; j++) {
+                distances[i][j] = 0;
+                
+                
+            }
+        }
+        
+        while (true) {
+            System.out.println("\n=== Distance Management ===");
+            System.out.println("1. Add/Edit Distance");
+            System.out.println("2. View Distance Table");
+            System.out.println("3. Back to Main");
+            System.out.print("Choose: ");
+        
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch (choice) {
+                case 1:
+                    System.out.println("Add distance ");
+                    break;
+                case 2:
+                    System.out.println("Distance table");
+                    break;
+                case 3:
+                    System.out.println("Back to Main...");
+                    return;
+                default:
+                    System.out.println("Invalid choice!");
+                    break;
+            }
     }
 }
 }
