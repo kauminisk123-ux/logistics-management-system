@@ -33,7 +33,7 @@ public class LogisticsManagementSystem {
                 cityManagement(scanner);
                 break;
             case 2:
-                System.out.println("Distance Management Selected");
+                distanceManagement(scanner);
                 break;
             case 3:
                 System.out.println("Delivery Request Selected");
@@ -212,11 +212,62 @@ public class LogisticsManagementSystem {
             
             switch (choice) {
                 case 1:
-                    System.out.println("Add distance - coming in next commit");
+                    if (cityCount < 2) {
+                        System.out.println("Need at least 2 cities to set distances!");
+                        break;
+                    }
+                    
+                    System.out.println("Available cities:");
+                    for(int i=0; i<cityCount; i++){
+                        System.out.println((i + 1) + ". " + cities[i]);
+                    
+                    }
+                    
+                    System.out.print("Enter first city number: ");
+                    int c1 = scanner.nextInt();
+                    System.out.print("Enter second city number: ");
+                    int c2 = scanner.nextInt();
+                    
+                    if (c1 == c2) {
+                        distances[c1-1][c2-1] = 0;
+                        System.out.println("Distance set to 0 (same city)");
+                    } 
+                    else {
+                        System.out.print("Enter distance in km: ");
+                        int distance = scanner.nextInt();
+                        distances[c1-1][c2-1] = distance;
+                        distances[c2-1][c1-1] = distance;
+                        System.out.println("Distance set successfully!");
+                    }
+                    
                     break;
                 case 2:
-                    System.out.println("Distance table - coming in next commit");
+                    
+    
+                    if (cityCount == 0) {
+                        System.out.println("No cities added yet!");
+                        break;
+                    }
+    
+                    System.out.println("\n=== Distance Table ===");
+    
+    
+                    System.out.print("  ");
+                    for (int i = 0; i < cityCount; i++) {
+                        System.out.print(cities[i] + "  ");
+                    }
+                    System.out.println();
+    
+    
+                    for (int i = 0; i < cityCount; i++) {
+                        System.out.print(cities[i] + "  ");
+                        for (int j = 0; j < cityCount; j++) {
+                            System.out.print(distances[i][j] + "km     ");
+                        }
+                        System.out.println();
+                    }
                     break;
+                    
                 case 3:
                     System.out.println("Back to Main...");
                     return;
@@ -227,6 +278,3 @@ public class LogisticsManagementSystem {
     }
 }
 }
-        
-        
-        
