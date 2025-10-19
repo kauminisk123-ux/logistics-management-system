@@ -15,6 +15,12 @@ public class LogisticsManagementSystem {
     static int cityCount=0;
     static int[][] distances = new int[30][30];
     
+    static String[] vehicleTypes = {"Van","Truck","Lorry"};
+    static int[] capacities={1000,5000,10000};
+    static int[] ratesPerKm={30,40,80};
+    static int[] avgSpeeds={60,50,45};
+    static int[] fuelEfficiency={12,6,4};
+    
     
 
     public static void main(String[] args) {
@@ -276,7 +282,15 @@ public class LogisticsManagementSystem {
             }
     }
 }
+    
+    public static void vehicleManagement(Scanner scanner){
+    
+    
+    }
 }
         
         
-   
+        
+        
+        
+        
