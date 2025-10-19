@@ -11,6 +11,11 @@ package com.mycompany.logisticsmanagementsystem;
 import java.util.Scanner;
 public class LogisticsManagementSystem {
     
+    static String[] cities = new String[30];
+    static int cityCount=0;
+    static int[][] distances = new int[30][30];
+    
+    
 
     public static void main(String[] args) {
         System.out.println("\t\t*-*-*-*-*-WELCOME TO LOGISTICS MANAGEMENT SYSTEM-*-*-*-*-*");
@@ -67,8 +72,7 @@ public class LogisticsManagementSystem {
     
     
     public static void cityManagement(Scanner scanner) {
-    String[] cities = new String[30];
-    int cityCount = 0;
+    
     
     while (true) {
         System.out.println("\n=== City Management ===");
@@ -188,8 +192,6 @@ public class LogisticsManagementSystem {
     
     public static void distanceManagement(Scanner scanner){
         
-        int[][] distances = new int[30][30];
-        
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 30; j++) {
                 distances[i][j] = 0;
@@ -210,10 +212,10 @@ public class LogisticsManagementSystem {
             
             switch (choice) {
                 case 1:
-                    System.out.println("Add distance ");
+                    System.out.println("Add distance - coming in next commit");
                     break;
                 case 2:
-                    System.out.println("Distance table");
+                    System.out.println("Distance table - coming in next commit");
                     break;
                 case 3:
                     System.out.println("Back to Main...");
@@ -225,3 +227,6 @@ public class LogisticsManagementSystem {
     }
 }
 }
+        
+        
+        
