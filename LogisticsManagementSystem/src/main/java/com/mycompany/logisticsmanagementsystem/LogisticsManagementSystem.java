@@ -462,7 +462,7 @@ public class LogisticsManagementSystem {
         
         
         
-        int distance = distances[sourceIndex][destIndex];
+        int distance = findMinimumDistance(sourceIndex, destIndex);
 
 
         double baseCost = distance * ratesPerKm[vehicleChoice - 1] * (1 + weight / 10000.0);
@@ -528,6 +528,37 @@ public class LogisticsManagementSystem {
     System.out.println("Total deliveries: " + deliveryCount);
     }
     
+    public static int findMinimumDistance(int start, int end) {
+    
+        int minDistance = distances[start][end];
+    
+    
+        if (minDistance == 0 || cityCount <= 2) {
+            return minDistance;
+        }
+
+        
+        for (int i = 0; i < cityCount; i++) {
+            
+         
+            if (i != start && i != end) {
+                
+                if (distances[start][i] > 0 && distances[i][end] > 0) {
+                    
+                    int totalDistance = distances[start][i] + distances[i][end];
+                    
+                    if (totalDistance < minDistance) {
+                        minDistance = totalDistance;
+                    }
+                }
+            }
+        }
+        
+    
+        return minDistance;
+    }
+    
+    
     
     
     
@@ -541,3 +572,5 @@ public class LogisticsManagementSystem {
 
 
 
+
+        
