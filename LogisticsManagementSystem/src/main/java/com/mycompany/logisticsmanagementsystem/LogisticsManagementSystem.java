@@ -9,6 +9,7 @@ package com.mycompany.logisticsmanagementsystem;
  * @author U S E R
  */
 import java.util.Scanner;
+
 public class LogisticsManagementSystem {
     
     static String[] cities = new String[30];
@@ -37,6 +38,9 @@ public class LogisticsManagementSystem {
         Scanner scanner=new Scanner(System.in);
         
         int choice;
+        
+        System.out.println("Loading data from files...");
+        loadDataFromFiles();
     
     do {
         showMainMenu();
@@ -56,8 +60,14 @@ public class LogisticsManagementSystem {
                 performanceReports(scanner);
                 break;
             case 5:
+                saveDataToFiles();
+            case 6:
                 System.out.println("Thank you for using our system!! Exiting.....");
                 break;
+            case 7:
+                System.out.println("Thank you for using Logistics Management System!");
+                saveDataToFiles();
+                return;
             default:
                 System.out.println("Invalid choice! Please try again.....");
         }
@@ -66,6 +76,8 @@ public class LogisticsManagementSystem {
     
     
     System.out.println("Successfully Executed !!");
+    System.out.println("Saving data to files...");
+    saveDataToFiles();
 }
     
     public static void showMainMenu() {
@@ -73,14 +85,17 @@ public class LogisticsManagementSystem {
         System.out.println("1. City Management");
         System.out.println("2. Distance Management");
         System.out.println("3. Delivery Request");
-        System.out.println("4. Reports");
-        System.out.println("5. Exit");
+        System.out.println("4. Performance Reports");
+        System.out.println("5. Save Data");
+        System.out.println("6. Exit");
         System.out.print("Choose an option (1-5): ");
     }
     
     public static int getUserChoice(Scanner scanner){
         int choice= scanner.nextInt();
         return choice;
+        
+   
     
     }
     
@@ -692,6 +707,92 @@ public class LogisticsManagementSystem {
         System.out.println("e. Longest Route Completed: " + longestRoute + " km");
         System.out.println("   Shortest Route Completed: " + shortestRoute + " km");
     }
+    
+    
+    public static void saveDataToFiles() {
+        try {
+            
+            PrintWriter routesWriter = new PrintWriter("routes.txt");
+
+            
+            routesWriter.println(cityCount);
+            for (int i = 0; i < cityCount; i++) {
+                routesWriter.println(cities[i]);
+            }
+
+           
+            for (int i = 0; i < cityCount; i++) {
+                for (int j = 0; j < cityCount; j++) {
+                    routesWriter.print(distances[i][j] + " ");
+                }
+                routesWriter.println();
+            }
+            routesWriter.close();
+
+            
+            PrintWriter deliveriesWriter = new PrintWriter("deliveries.txt");
+            deliveriesWriter.println(deliveryCount);
+            for (int i = 0; i < deliveryCount; i++) {
+                deliveriesWriter.println(deliverySource[i] + "," + deliveryDestination[i] + "," + 
+                                       deliveryWeights[i] + "," + deliveryVehicles[i] + "," + 
+                                       deliveryCosts[i]);
+            }
+            deliveriesWriter.close();
+
+            System.out.println("Data saved successfully to files!");
+        } catch (Exception e) {
+            System.out.println("Error saving data: " + e.getMessage());
+        }
+    }
+
+    public static void loadDataFromFiles() {
+        try {
+            
+            File routesFile = new File("routes.txt");
+            if (routesFile.exists()) {
+                Scanner fileScanner = new Scanner(routesFile);
+
+                
+                cityCount = Integer.parseInt(fileScanner.nextLine());
+                for (int i = 0; i < cityCount; i++) {
+                    cities[i] = fileScanner.nextLine();
+                }
+
+               
+                for (int i = 0; i < cityCount; i++) {
+                    String[] distanceValues = fileScanner.nextLine().split(" ");
+                    for (int j = 0; j < cityCount; j++) {
+                        distances[i][j] = Integer.parseInt(distanceValues[j]);
+                    }
+                }
+                fileScanner.close();
+                System.out.println("Loaded " + cityCount + " cities and distances.");
+            }
+
+            
+            File deliveriesFile = new File("deliveries.txt");
+            if (deliveriesFile.exists()) {
+                Scanner fileScanner = new Scanner(deliveriesFile);
+
+                deliveryCount = Integer.parseInt(fileScanner.nextLine());
+                for (int i = 0; i < deliveryCount; i++) {
+                    String[] deliveryData = fileScanner.nextLine().split(",");
+                    deliverySource[i] = deliveryData[0];
+                    deliveryDestination[i] = deliveryData[1];
+                    deliveryWeights[i] = Integer.parseInt(deliveryData[2]);
+                    deliveryVehicles[i] = Integer.parseInt(deliveryData[3]);
+                    deliveryCosts[i] = Double.parseDouble(deliveryData[4]);
+                }
+                fileScanner.close();
+                System.out.println("Loaded " + deliveryCount + " delivery records.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error loading data: " + e.getMessage());
+        }
+    }
+
+
+
 
         
         
@@ -706,7 +807,7 @@ public class LogisticsManagementSystem {
 
         
 
-
-
-
+        
+        
+        
         
