@@ -471,13 +471,36 @@ public class LogisticsManagementSystem {
     }
     
     
+    public static void viewDeliveryHistory() {
+    if (deliveryCount == 0) {
+        System.out.println("No deliveries recorded yet!");
+        return;
+    }
+    
+    System.out.println("\n=== DELIVERY HISTORY ===");
+    System.out.println("No.  From       To         Weight  Vehicle  Cost");
+    System.out.println("------------------------------------------------");
+    
+    for (int i = 0; i < deliveryCount; i++) {
+        System.out.printf("%-4d %-10s %-10s %-7d %-8s %-8.2f\n",
+            i + 1,
+            deliverySource[i],
+            deliveryDestination[i],
+            deliveryWeights[i],
+            vehicleTypes[deliveryVehicles[i] - 1],
+            deliveryCosts[i]
+        );
+    }
+    
+    System.out.println("Total deliveries: " + deliveryCount);
+    }
+    
+    
 
         
     
     
     
     }
-
-
 
 
