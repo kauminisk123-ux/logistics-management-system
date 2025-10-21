@@ -53,7 +53,7 @@ public class LogisticsManagementSystem {
                 delieveryManagement(scanner);
                 break;
             case 4:
-                System.out.println("Reports Selected");
+                performanceReports(scanner);
                 break;
             case 5:
                 System.out.println("Thank you for using our system!! Exiting.....");
@@ -559,16 +559,152 @@ public class LogisticsManagementSystem {
     }
     
     
+    public static void performanceReports(Scanner scanner){
+        
+        
+        while (true) {
+            System.out.println("\n=== Performance Reports ===");
+            System.out.println("1. Delivery Performance Reports");
+            System.out.println("2. Back to Main");
+            System.out.print("Choose: ");
+        
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            
+            
+            switch (choice) {
+            case 1:
+                report();
+                break;
+           
+            case 2:
+                System.out.println("Back to Main...");
+                return;
+            default:
+                System.out.println("Invalid choice!");
+            }
+    
+    }
+    
+   
+    }
+    
+    public static void report(){
+        if (deliveryCount == 0) {
+        System.out.println("No deliveries to show in report!");
+        return;
+        }
+    
+        System.out.println("\n=== DELIVERY PERFORMANCE REPORT ===");
     
     
-    
+        System.out.println("a. Total Deliveries Completed: " + deliveryCount);
+        
+        int totalDistance = 0;
+        for (int i = 0; i < deliveryCount; i++) {
+            String source = deliverySource[i];
+            String dest = deliveryDestination[i];
+            
+            int sourceIndex = -1, destIndex = -1;
+            for (int j = 0; j < cityCount; j++) {
+                if (cities[j].equals(source)) sourceIndex = j;
+                if (cities[j].equals(dest)) destIndex = j;
+            }
+            if (sourceIndex != -1 && destIndex != -1) {
+                totalDistance =  totalDistance + distances[sourceIndex][destIndex];
+            }
+        }
+        System.out.println("b. Total Distance Covered: " + totalDistance + " km");
 
+        
+        double totalTime = 0;
+        int validDeliveries = 0;
+        for (int i = 0; i < deliveryCount; i++) {
+            String source = deliverySource[i];
+            String dest = deliveryDestination[i];
+            int vehicleType = deliveryVehicles[i] - 1;
+
+            int sourceIndex = -1, destIndex = -1;
+            for (int j = 0; j < cityCount; j++) {
+                if (cities[j].equals(source)) sourceIndex = j;
+                if (cities[j].equals(dest)) destIndex = j;
+            }
+
+            if (sourceIndex != -1 && destIndex != -1 && distances[sourceIndex][destIndex] > 0) {
+                double time = (double) distances[sourceIndex][destIndex] / avgSpeeds[vehicleType];
+                totalTime = totalTime + time;
+                validDeliveries++;
+            }
+        }
+        double averageTime = (validDeliveries > 0) ? totalTime / validDeliveries : 0;
+        System.out.printf("c. Average Delivery Time: %.2f hours\n", averageTime);
+
+        
+        double totalRevenue = 0;
+        double totalProfit = 0;
+        for (int i = 0; i < deliveryCount; i++) {
+            totalRevenue = totalRevenue + deliveryCosts[i];
+
+            
+            String source = deliverySource[i];
+            String dest = deliveryDestination[i];
+            int vehicleType = deliveryVehicles[i] - 1;
+            int weight = deliveryWeights[i];
+
+            int sourceIndex = -1, destIndex = -1;
+            for (int j = 0; j < cityCount; j++) {
+                if (cities[j].equals(source)) sourceIndex = j;
+                if (cities[j].equals(dest)) destIndex = j;
+            }
+
+            if (sourceIndex != -1 && destIndex != -1) {
+                int distance = distances[sourceIndex][destIndex];
+                double baseCost = distance * ratesPerKm[vehicleType] * (1 + weight / 10000.0);
+                double profit = baseCost * 0.25;
+                totalProfit = totalProfit + profit;
+            }
+        }
+        System.out.printf("d. Total Revenue: %.2f LKR\n", totalRevenue);
+        System.out.printf("   Total Profit: %.2f LKR\n", totalProfit);
+
+        
+        int longestRoute = 0;
+        int shortestRoute = Integer.MAX_VALUE;
+
+        for (int i = 0; i < deliveryCount; i++) {
+            String source = deliverySource[i];
+            String dest = deliveryDestination[i];
+
+            int sourceIndex = -1, destIndex = -1;
+            for (int j = 0; j < cityCount; j++) {
+                if (cities[j].equals(source)) sourceIndex = j;
+                if (cities[j].equals(dest)) destIndex = j;
+            }
+
+            if (sourceIndex != -1 && destIndex != -1) {
+                int distance = distances[sourceIndex][destIndex];
+                if (distance > longestRoute) longestRoute = distance;
+                if (distance < shortestRoute && distance > 0) shortestRoute = distance;
+            }
+        }
+
+        if (shortestRoute == Integer.MAX_VALUE) shortestRoute = 0;
+        System.out.println("e. Longest Route Completed: " + longestRoute + " km");
+        System.out.println("   Shortest Route Completed: " + shortestRoute + " km");
+    }
+
+        
         
     
     
     
     }
 
+
+
+
+
+        
 
 
 
