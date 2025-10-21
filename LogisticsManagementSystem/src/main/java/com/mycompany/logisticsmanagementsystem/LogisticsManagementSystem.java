@@ -21,11 +21,11 @@ public class LogisticsManagementSystem {
     static int[] avgSpeeds={60,50,45};
     static int[] fuelEfficiency={12,6,4};
     
-    static String[] deliverySource = new String[50];
-    static String[] deliveryDestination = new String[50];
-    static int[] deliveryWeights = new int[50];
-    static int[] deliveryVehicles = new int[50];
-    static double[] deliveryCosts = new double[50];
+    static String[] deliverySource = new String[100];
+    static String[] deliveryDestination = new String[100];
+    static int[] deliveryWeights = new int[100];
+    static int[] deliveryVehicles = new int[100];
+    static double[] deliveryCosts = new double[100];
     static int deliveryCount = 0;
     
 
@@ -363,14 +363,121 @@ public class LogisticsManagementSystem {
         
             int choice = scanner.nextInt();
             scanner.nextLine();
-    
+            
+            switch (choice) {
+            case 1:
+                newDeliveryRequest(scanner);
+                break;
+            case 2:
+                viewDeliveryHistory();
+                break;
+            case 3:
+                System.out.println("Back to Main...");
+                return;
+            default:
+                System.out.println("Invalid choice!");
+            }
+            
+           
         
     
     
     
         }
+
+
+    }
+    
+    public static void newDeliveryRequest(Scanner scanner){
+        
+        if(cityCount < 2){
+            System.out.println("Need at least 2 cities for delievery!");
+            return;
+        
+        
+        }
+        
+        if(deliveryCount >= 100) {
+        System.out.println("Delivery records full! Maximum 100 deliveries...");
+        return;
+        
+        }
+        
+        
+        
+        System.out.println("\n=== NEW DELIVERY REQUEST ===");
+    
+    
+        System.out.println("Available Cities:");
+        for (int i = 0; i < cityCount; i++) {
+            System.out.println((i + 1) + ". " + cities[i]);
+        }
+    
+    
+        System.out.print("Enter source city number: ");
+        int sourceIndex = scanner.nextInt() - 1;
+    
+    
+        System.out.print("Enter destination city number: ");
+        int destIndex = scanner.nextInt() - 1;
+    
+    
+        if (sourceIndex < 0 || sourceIndex >= cityCount || destIndex < 0 || destIndex >= cityCount) {
+            System.out.println("Invalid city selection!");
+            return;
+        }
+    
+    
+        if (sourceIndex == destIndex) {
+            System.out.println("Source and destination cannot be the same!");
+            return;
+        }
+    
+    
+        System.out.print("Enter package weight (kg): ");
+        int weight = scanner.nextInt();
+    
+    
+        System.out.println("\nSelect Vehicle Type:");
+        System.out.println("1. Van (Capacity: 1000kg, Rate: 30/km)");
+        System.out.println("2. Truck (Capacity: 5000kg, Rate: 40/km)");
+        System.out.println("3. Lorry (Capacity: 10000kg, Rate: 80/km)");
+        System.out.print("Enter vehicle choice (1-3): ");
+        int vehicleChoice = scanner.nextInt();
+    
+    
+        if (vehicleChoice < 1 || vehicleChoice > 3) {
+            System.out.println("Invalid vehicle choice!");
+            return;
+        }
+
+    
+    
+        if (weight > capacities[vehicleChoice - 1]) {
+            System.out.println("Weight exceeds vehicle capacity! Maximum: " + capacities[vehicleChoice - 1] + "kg");
+            return;
+        }
+    
+   
+        deliverySource[deliveryCount] = cities[sourceIndex];
+        deliveryDestination[deliveryCount] = cities[destIndex];
+        deliveryWeights[deliveryCount] = weight;
+        deliveryVehicles[deliveryCount] = vehicleChoice;
+        deliveryCosts[deliveryCount] = 0; 
+    
+        deliveryCount++;
+        System.out.println("Delivery request recorded successfully!");
+        
+    }
+    
+    
+
+        
+    
+    
     
     }
 
 
-}
+
+
