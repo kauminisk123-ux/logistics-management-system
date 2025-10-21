@@ -21,6 +21,12 @@ public class LogisticsManagementSystem {
     static int[] avgSpeeds={60,50,45};
     static int[] fuelEfficiency={12,6,4};
     
+    static String[] deliverySource = new String[50];
+    static String[] deliveryDestination = new String[50];
+    static int[] deliveryWeights = new int[50];
+    static int[] deliveryVehicles = new int[50];
+    static double[] deliveryCosts = new double[50];
+    static int deliveryCount = 0;
     
 
     public static void main(String[] args) {
@@ -42,7 +48,7 @@ public class LogisticsManagementSystem {
                 distanceManagement(scanner);
                 break;
             case 3:
-                System.out.println("Delivery Request Selected");
+                delieveryManagement(scanner);
                 break;
             case 4:
                 System.out.println("Reports Selected");
@@ -345,8 +351,26 @@ public class LogisticsManagementSystem {
         }
     }
     
+    
+    public static void delieveryManagement(Scanner scanner){
+        
+        while (true) {
+            System.out.println("\n=== Delievery Management ===");
+            System.out.println("1. View Vehicle Types");
+            System.out.println("2. Select the Vehicle Type: ");
+            System.out.println("3. Back to Main");
+            System.out.print("Choose: ");
+        
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+    
         
     
     
     
+        }
+    
     }
+
+
+}
