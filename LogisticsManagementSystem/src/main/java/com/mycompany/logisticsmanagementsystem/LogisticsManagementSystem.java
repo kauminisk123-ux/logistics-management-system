@@ -21,12 +21,14 @@ public class LogisticsManagementSystem {
     static int[] avgSpeeds={60,50,45};
     static int[] fuelEfficiency={12,6,4};
     
-    static String[] deliverySource = new String[100];
-    static String[] deliveryDestination = new String[100];
-    static int[] deliveryWeights = new int[100];
-    static int[] deliveryVehicles = new int[100];
-    static double[] deliveryCosts = new double[100];
+    static String[] deliverySource = new String[50];
+    static String[] deliveryDestination = new String[50];
+    static int[] deliveryWeights = new int[50];
+    static int[] deliveryVehicles = new int[50];
+    static double[] deliveryCosts = new double[50];
     static int deliveryCount = 0;
+    
+    static final double FUEL_PRICE = 310.0;
     
 
     public static void main(String[] args) {
@@ -397,8 +399,8 @@ public class LogisticsManagementSystem {
         
         }
         
-        if(deliveryCount >= 100) {
-        System.out.println("Delivery records full! Maximum 100 deliveries...");
+        if(deliveryCount >= 50) {
+        System.out.println("Delivery records full! Maximum 50 deliveries...");
         return;
         
         }
@@ -457,43 +459,76 @@ public class LogisticsManagementSystem {
             System.out.println("Weight exceeds vehicle capacity! Maximum: " + capacities[vehicleChoice - 1] + "kg");
             return;
         }
-    
-   
+        
+        
+        
+        int distance = distances[sourceIndex][destIndex];
+
+
+        double baseCost = distance * ratesPerKm[vehicleChoice - 1] * (1 + weight / 10000.0);
+        double fuelUsed = (double) distance / fuelEfficiency[vehicleChoice - 1];
+        double fuelCost = fuelUsed * FUEL_PRICE;
+        double totalOperationalCost = baseCost + fuelCost;
+        double profit = baseCost * 0.25; 
+        double customerCharge = totalOperationalCost + profit;
+        double deliveryTime = (double) distance / avgSpeeds[vehicleChoice - 1];
+
+
         deliverySource[deliveryCount] = cities[sourceIndex];
         deliveryDestination[deliveryCount] = cities[destIndex];
         deliveryWeights[deliveryCount] = weight;
         deliveryVehicles[deliveryCount] = vehicleChoice;
-        deliveryCosts[deliveryCount] = 0; 
-    
+        deliveryCosts[deliveryCount] = customerCharge;
+
         deliveryCount++;
-        System.out.println("Delivery request recorded successfully!");
+
+        System.out.println("======================================================");
+        System.out.println("\n\tDELIVERY COST ESTIMATION");
+        System.out.println("\n------------------------------------------------------ ");
+        System.out.println("From: " + cities[sourceIndex]);
+        System.out.println("To: " + cities[destIndex]);
+        System.out.println("Minimum Distance: " + distance + " km");
+        System.out.println("Vehicle: " + vehicleTypes[vehicleChoice - 1]);
+        System.out.println("Weight: " + weight + " kg");
+        System.out.println("\n------------------------------------------------------ ");
+        System.out.printf("Base Cost: %.2f LKR\n", baseCost);
+        System.out.printf("Fuel Used: %.2f L\n", fuelUsed);
+        System.out.printf("Fuel Cost: %.2f LKR\n", fuelCost);
+        System.out.printf("Operational Cost: %.2f LKR\n", totalOperationalCost);
+        System.out.printf("Profit: %.2f LKR\n", profit);
+        System.out.printf("Customer Charge: %.2f LKR\n", customerCharge);
+        System.out.printf("Estimated Time: %.2f hours\n", deliveryTime);
+        System.out.println("\n======================================================");
+        System.out.println("Delivery recorded successfully!");
         
     }
     
     
     public static void viewDeliveryHistory() {
-    if (deliveryCount == 0) {
-        System.out.println("No deliveries recorded yet!");
-        return;
-    }
+        if (deliveryCount == 0) {
+            System.out.println("No deliveries recorded yet!");
+            return;
+        }
     
-    System.out.println("\n=== DELIVERY HISTORY ===");
-    System.out.println("No.  From       To         Weight  Vehicle  Cost");
-    System.out.println("------------------------------------------------");
-    
-    for (int i = 0; i < deliveryCount; i++) {
-        System.out.printf("%-4d %-10s %-10s %-7d %-8s %-8.2f\n",
-            i + 1,
-            deliverySource[i],
-            deliveryDestination[i],
-            deliveryWeights[i],
-            vehicleTypes[deliveryVehicles[i] - 1],
-            deliveryCosts[i]
-        );
-    }
+        System.out.println("\n=== DELIVERY HISTORY ===");
+        System.out.println("No.  From       To         Weight  Vehicle  Charge(LKR)");
+        System.out.println("-------------------------------------------------------");
+
+        for (int i = 0; i < deliveryCount; i++) {
+            System.out.printf("%-4d %-10s %-10s %-7d %-8s %-12.2f\n",
+                i + 1,
+                deliverySource[i],
+                deliveryDestination[i],
+                deliveryWeights[i],
+                vehicleTypes[deliveryVehicles[i] - 1],
+                deliveryCosts[i]
+            );
+        }
     
     System.out.println("Total deliveries: " + deliveryCount);
     }
+    
+    
     
     
 
@@ -502,5 +537,7 @@ public class LogisticsManagementSystem {
     
     
     }
+
+
 
 
