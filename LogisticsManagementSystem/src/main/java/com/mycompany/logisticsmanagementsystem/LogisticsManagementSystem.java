@@ -56,17 +56,20 @@ public class LogisticsManagementSystem {
                 distanceManagement(scanner);
                 break;
             case 3:
-                delieveryManagement(scanner);
+                vehicleManagement(scanner);
                 break;
             case 4:
-                performanceReports(scanner);
+                deliveryManagement(scanner);
                 break;
             case 5:
-                saveDataToFiles();
+                performanceReports(scanner);
+                break;
             case 6:
+                saveDataToFiles();
+            case 7:
                 System.out.println("Thank you for using our system!! Exiting.....");
                 break;
-            case 7:
+            case 8:
                 System.out.println("Thank you for using Logistics Management System!");
                 saveDataToFiles();
                 return;
@@ -86,11 +89,12 @@ public class LogisticsManagementSystem {
         System.out.println("\n------- MAIN MENU -------");
         System.out.println("1. City Management");
         System.out.println("2. Distance Management");
-        System.out.println("3. Delivery Request");
-        System.out.println("4. Performance Reports");
-        System.out.println("5. Save Data");
-        System.out.println("6. Exit");
-        System.out.print("Choose an option (1-5): ");
+        System.out.println("3. Vehicle Management");
+        System.out.println("4. Delivery Request");
+        System.out.println("5. Performance Reports");
+        System.out.println("6. Save Data");
+        System.out.println("7. Exit");
+        System.out.print("Choose an option (1-7): ");
     }
     
     public static int getUserChoice(Scanner scanner){
@@ -371,12 +375,12 @@ public class LogisticsManagementSystem {
     }
     
     
-    public static void delieveryManagement(Scanner scanner){
+    public static void deliveryManagement(Scanner scanner){
         
         while (true) {
             System.out.println("\n=== Delievery Management ===");
-            System.out.println("1. View Vehicle Types");
-            System.out.println("2. Select the Vehicle Type: ");
+            System.out.println("1. New Delivery Request");
+            System.out.println("2. View Delivery History ");
             System.out.println("3. Back to Main");
             System.out.print("Choose: ");
         
@@ -384,19 +388,19 @@ public class LogisticsManagementSystem {
             scanner.nextLine();
             
             switch (choice) {
-            case 1:
-                newDeliveryRequest(scanner);
-                break;
-            case 2:
-                viewDeliveryHistory();
-                break;
-            case 3:
-                System.out.println("Back to Main...");
-                return;
-            default:
-                System.out.println("Invalid choice!");
-            }
-            
+                case 1:
+                    newDeliveryRequest(scanner);
+                    break;
+                case 2:
+                    viewDeliveryHistory();
+                    break;
+                case 3:
+                    System.out.println("Back to Main...");
+                    return;
+                default:
+                    System.out.println("Invalid choice!");
+                }
+
            
         
     
